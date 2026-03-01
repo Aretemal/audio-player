@@ -7,6 +7,8 @@ import App from './App.vue'
 import router from './router'
 import './api/interceptors'
 import './index.css'
+import { useThemeStore } from './stores/theme'
+import { useAuthStore } from './stores/auth'
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -19,5 +21,10 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
-// Монтируем приложение сразу - роутер сам проверит авторизацию при первой навигации
 app.mount('#app')
+
+const themeStore = useThemeStore()
+const authStore = useAuthStore()
+
+themeStore.initTheme()
+authStore.checkAuth()

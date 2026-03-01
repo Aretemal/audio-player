@@ -4,7 +4,7 @@ export type Song = {
   artist: string | null
   src: string
   album: string | null
-  playlist: string | null
+  file_size: number | null
   user_ids: number[]
   created_at: string
   updated_at: string
@@ -13,7 +13,6 @@ export type Song = {
 export type SongCreate = {
   title?: string | null
   artist?: string | null
-  playlist?: string | null
   album?: string | null
   file: File
 }

@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+/* Настройка темной темы для Tailwind v4 через @variant */
+/* Вариант 1: через класс на родителе (рекомендуется) */
+/* Применяется ко всем элементам внутри элемента с классом .dark */
+@variant dark (.dark &);
+
+/* Альтернативный вариант (если первый не работает): */
+/* @variant dark (&:where(.dark, .dark *)); */
+
 body {
   font-family: 'Science Gothic', serif;
+}
+
+/* Поддержка темной темы */
+html.dark {
+  color-scheme: dark;
 }

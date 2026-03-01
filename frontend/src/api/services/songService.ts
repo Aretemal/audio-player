@@ -10,7 +10,6 @@ export const songService = {
     formData.append('file', song.file)
     if (song.title) formData.append('title', song.title)
     if (song.artist) formData.append('artist', song.artist)
-    if (song.playlist) formData.append('playlist', song.playlist)
     if (song.album) formData.append('album', song.album)
     return apiClient.post<Song>('/songs', formData, {
       headers: {
@@ -20,6 +19,9 @@ export const songService = {
   },
   update: (id: number, song: SongUpdate) => apiClient.put<Song>(`/songs/${id}`, song),
   delete: (id: number) => apiClient.delete<void>(`/songs/${id}`),
-  getStreamUrl: (id: number) => `/api/songs/${id}/stream`,
+  getStreamUrl: (id: number) => {
+    const baseURL = apiClient.defaults.baseURL || ''
+    return `${baseURL}/songs/${id}/stream`
+  },
 }
 

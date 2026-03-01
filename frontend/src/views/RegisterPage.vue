@@ -87,7 +87,7 @@ async function handleRegister() {
         </div>
       </el-form>
       <el-alert
-        v-if="authStore.error"
+        v-if="authStore.error && !authStore.error.includes('auth') && !authStore.error.includes('authorized')"
         :title="authStore.error"
         type="error"
         :closable="false"
@@ -99,7 +99,7 @@ async function handleRegister() {
         <el-icon class="is-loading" style="font-size: 32px;">
           <Loading />
         </el-icon>
-        <p style="margin-top: 16px;">Проверка авторизации...</p>
+        <p style="margin-top: 16px;">Checking authentication...</p>
       </div>
     </el-card>
   </div>
@@ -117,6 +117,21 @@ async function handleRegister() {
 .register-card {
   width: 100%;
   max-width: 400px;
+}
+
+:deep(.el-input__inner) {
+  -webkit-text-fill-color: inherit !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+:deep(.el-input__inner:-webkit-autofill) {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: inherit !important;
+}
+
+:deep(.dark .el-input__inner:-webkit-autofill) {
+  -webkit-box-shadow: 0 0 0 1000px rgb(31 41 55) inset !important;
+  -webkit-text-fill-color: inherit !important;
 }
 </style>
 

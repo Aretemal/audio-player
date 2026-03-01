@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import AppHeader from './widgets/AppHeader.vue';
-import AppFooter from './widgets/AppFooter.vue';
 </script>
 
 <template>
-  <div id="app">
+  <div id="app" class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
     <AppHeader />
     <main class="flex-1 w-full px-10 py-4">
       <RouterView />
     </main>
-    <AppFooter />
   </div>
 </template>
 
@@ -20,6 +18,5 @@ import AppFooter from './widgets/AppFooter.vue';
   width: 100%;
   display: flex;
   flex-direction: column;
-  background: #fafafa;
 }
 </style>

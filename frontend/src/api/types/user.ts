@@ -4,8 +4,14 @@ export interface User {
   username: string
   is_active: boolean
   is_superuser: boolean
+  theme?: string
   created_at: string
   updated_at: string
+}
+
+export interface UserUpdate {
+  username?: string
+  theme?: string
 }
 
 export interface UserCreate {

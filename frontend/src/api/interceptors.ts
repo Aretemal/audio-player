@@ -24,8 +24,10 @@ apiClient.interceptors.response.use(
   async (error: AxiosError) => {
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean }
 
-    // Если это запрос на /auth/refresh и он получил 401, не пытаемся обновить токен (это приведет к бесконечному циклу)
-    if (originalRequest?.url?.includes('/auth/refresh')) {
+    if (originalRequest?.url?.includes('/auth/refresh') ||
+        originalRequest?.url?.includes('/auth/login') ||
+        originalRequest?.url?.includes('/auth/register') ||
+        originalRequest?.url?.includes('/auth/me')) {
       return Promise.reject(error)
     }
 

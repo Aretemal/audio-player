@@ -14,7 +14,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isAuthenticated = computed(() => !!user.value)
 
-  async function checkAuth() {
+  async function checkAuth(silent = false) {
     if (checkAuthPromise) {
       return checkAuthPromise
     }
@@ -36,11 +36,14 @@ export const useAuthStore = defineStore('auth', () => {
           return false
         }
 
-        ElNotification({
-          message: 'Ошибка проверки авторизации! Поробуйте позже.',
-          type: 'error',
-          duration: 3000,
-        })
+        const status = axiosError.response?.status
+        if (!silent && status !== 401 && status !== 403) {
+          ElNotification({
+            message: 'Authentication check failed. Please try again later.',
+            type: 'error',
+            duration: 3000,
+          })
+        }
 
         user.value = null
 
@@ -121,7 +124,7 @@ export const useAuthStore = defineStore('auth', () => {
       error.value = null
     } catch {
       ElNotification({
-        message: 'Ошибка выхода! Поробуйте позже.',
+        message: 'Logout failed. Please try again later.',
         type: 'error',
         duration: 3000,
       })
