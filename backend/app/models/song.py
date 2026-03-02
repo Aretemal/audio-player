@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List
 
-from sqlalchemy import Column, DateTime, Integer, String, Table, ForeignKey
+from sqlalchemy import Column, DateTime, Integer, String, Table, ForeignKey, BigInteger
 from sqlalchemy.orm import relationship
 
 from app.models.base import Base
@@ -22,11 +22,13 @@ class Song(Base):
     title = Column(String(255), nullable=True)
     artist = Column(String(255), nullable=True)
     src = Column(String(500), nullable=False)
+    file_size = Column(BigInteger, nullable=True)
 
     album_id = Column(Integer, ForeignKey('albums.id'), nullable=True)
     album = relationship("Album", back_populates="songs")
 
     users = relationship("User", secondary=user_song_association, back_populates="songs")
+    playlists = relationship("Playlist", secondary="playlist_song", back_populates="songs")
 
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)

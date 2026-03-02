@@ -179,24 +179,24 @@ onUnmounted(() => {
   <div ref="containerRef" class="relative">
     <button
       @click="openSearch"
-      class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+      class="p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors cursor-pointer"
       title="Search"
     >
-      <el-icon :size="20" class="text-gray-600 dark:text-gray-300">
+      <el-icon :size="20" class="text-stone-600 dark:text-stone-300">
         <Search />
       </el-icon>
     </button>
 
     <div
       v-if="isOpen"
-      class="absolute top-full right-0 mt-2 w-96 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50"
+      class="absolute top-full right-0 mt-2 w-96 bg-stone-50 dark:bg-stone-800 rounded-lg shadow-xl border border-stone-200 dark:border-stone-700 z-50"
     >
-      <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+      <div class="p-4 border-b border-stone-200 dark:border-stone-700">
         <div class="flex items-center justify-between mb-3">
-          <h3 class="font-semibold text-lg dark:text-white">Search</h3>
+          <h3 class="font-semibold text-lg text-stone-900 dark:text-stone-100">Search</h3>
           <button
             @click="closeSearch"
-            class="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+            class="p-1 rounded hover:bg-stone-100 dark:hover:bg-stone-700 cursor-pointer"
           >
             <el-icon :size="18"><Close /></el-icon>
           </button>
@@ -223,8 +223,8 @@ onUnmounted(() => {
             :class="[
               'px-3 py-1 rounded-md text-sm transition-all cursor-pointer',
               selectedCategories.includes(category.value)
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                ? 'bg-amber-700 text-amber-50'
+                : 'bg-stone-100 dark:bg-stone-700 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-600'
             ]"
           >
             {{ category.label }}
@@ -236,17 +236,17 @@ onUnmounted(() => {
         class="overflow-y-auto"
         :style="{ maxHeight: `${containerHeight}px` }"
       >
-        <div v-if="isLoading" class="p-8 text-center text-gray-500 dark:text-gray-400">
+        <div v-if="isLoading" class="p-8 text-center text-stone-500 dark:text-stone-400">
           <el-icon class="is-loading" :size="24"><Search /></el-icon>
           <p class="mt-2">Searching...</p>
         </div>
-        <div v-else-if="!hasResults && searchQuery" class="p-8 text-center text-gray-500 dark:text-gray-400">
+        <div v-else-if="!hasResults && searchQuery" class="p-8 text-center text-stone-500 dark:text-stone-400">
           <p>No results found</p>
         </div>
-        <div v-else-if="!searchQuery" class="p-8 text-center text-gray-500 dark:text-gray-400">
+        <div v-else-if="!searchQuery" class="p-8 text-center text-stone-500 dark:text-stone-400">
           <p>Enter a search query</p>
         </div>
-        <div v-else class="divide-y divide-gray-200 dark:divide-gray-700">
+        <div v-else class="divide-y divide-stone-200 dark:divide-stone-700">
           <div
             v-for="item in allResults"
             :key="`${item.type}-${item.id}`"
@@ -256,17 +256,17 @@ onUnmounted(() => {
               item.type === 'playlist' ? handlePlaylistClick(item.data.id) :
               handleArtistClick(item.data.name)
             "
-            class="p-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
+            class="p-3 hover:bg-stone-50 dark:hover:bg-stone-700 cursor-pointer transition-colors"
           >
             <div class="flex items-center gap-3">
               <div class="text-2xl">
                 {{ item.type === 'song' ? '🎵' : item.type === 'album' ? '💿' : item.type === 'playlist' ? '📋' : '🎤' }}
               </div>
               <div class="flex-1 min-w-0">
-                <h4 class="font-medium truncate dark:text-white">
+                <h4 class="font-medium truncate text-stone-900 dark:text-stone-100">
                   {{ item.type === 'artist' ? item.data.name : (item.data.title || 'Untitled') }}
                 </h4>
-                <p class="text-sm text-gray-500 dark:text-gray-400 truncate">
+                <p class="text-sm text-stone-500 dark:text-stone-400 truncate">
                   <template v-if="item.type === 'song'">
                     {{ item.data.artist || 'Unknown artist' }}
                   </template>
@@ -288,7 +288,7 @@ onUnmounted(() => {
 
       <div
         v-if="hasResults"
-        class="p-3 border-t border-gray-200 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 text-center"
+        class="p-3 border-t border-stone-200 dark:border-stone-700 text-sm text-stone-500 dark:text-stone-400 text-center"
       >
         Found: {{ totalResults }}
       </div>

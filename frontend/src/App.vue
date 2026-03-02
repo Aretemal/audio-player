@@ -4,7 +4,7 @@ import AppHeader from './widgets/AppHeader.vue';
 </script>
 
 <template>
-  <div id="app" class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+  <div id="app" class="min-h-screen bg-stone-100 dark:bg-stone-950 transition-colors">
     <AppHeader />
     <main class="flex-1 w-full px-10 py-4">
       <RouterView />

@@ -35,7 +35,7 @@ async function handleLogout() {
 </script>
 
 <template>
-  <nav v-if="isAuthenticated" class="w-full px-10 bg-white dark:bg-gray-800 flex gap-4 items-center justify-between border-b border-gray-200 dark:border-gray-700">
+  <nav v-if="isAuthenticated" class="w-full px-10 bg-stone-50 dark:bg-stone-900 flex gap-4 items-center justify-between border-b border-stone-200 dark:border-stone-700">
     <div class="flex gap-4 items-center">
       <RouterLink
         v-for="link in links"
@@ -44,20 +44,20 @@ async function handleLogout() {
         :class="[
           'p-4 inline-block transition-colors',
           isActive(link.to)
-            ? 'text-black dark:text-white bg-gray-100 dark:bg-gray-700'
-            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
+            ? 'text-stone-900 dark:text-stone-100 bg-stone-200 dark:bg-stone-700'
+            : 'text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200'
         ]"
       >
         {{ link.label }}
       </RouterLink>
-      <div class="flex gap-1 p-1 bg-gray-100 dark:bg-gray-700 rounded-lg ml-2">
+      <div class="flex gap-1 p-1 bg-stone-200 dark:bg-stone-700 rounded-lg ml-2">
         <button
           type="button"
           :class="[
             'px-3 py-1.5 rounded-md text-sm font-medium transition-all cursor-pointer',
             themeStore.theme === 'light'
-              ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
-              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+              ? 'bg-stone-100 dark:bg-stone-600 text-amber-700 dark:text-amber-300 shadow-sm'
+              : 'text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
           ]"
           title="Light theme"
           @click="handleThemeChange('light')"
@@ -69,8 +69,8 @@ async function handleLogout() {
           :class="[
             'px-3 py-1.5 rounded-md text-sm font-medium transition-all cursor-pointer',
             themeStore.theme === 'dark'
-              ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
-              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+              ? 'bg-stone-100 dark:bg-stone-600 text-amber-700 dark:text-amber-300 shadow-sm'
+              : 'text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
           ]"
           title="Dark theme"
           @click="handleThemeChange('dark')"
@@ -80,7 +80,7 @@ async function handleLogout() {
       </div>
     </div>
     <div v-if="authStore.isAuthenticated" class="flex items-center gap-4">
-      <span class="text-gray-600 dark:text-gray-300">Hello, {{ authStore.user?.username }}!</span>
+      <span class="text-stone-600 dark:text-stone-300">Hello, {{ authStore.user?.username }}!</span>
       <el-button type="danger" size="small" @click="handleLogout">
         Logout
       </el-button>

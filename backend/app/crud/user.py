@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.auth.security import hash_password, verify_password
 from app.models.user import User
-from app.schemas.user import UserCreate
+from app.schemas.user import UserCreate, UserUpdate
 
 
 def get_user_by_email(db: Session, email: str) -> Optional[User]:
@@ -40,5 +40,21 @@ def authenticate_user(db: Session, email: str, password: str) -> Optional[User]:
         return None
     if not verify_password(password, user.password_hash):
         return None
+    return user
+
+
+def update_user(db: Session, user_id: int, user_update: UserUpdate) -> Optional[User]:
+    user = get_user_by_id(db, user_id)
+    if not user:
+        return None
+    
+    if user_update.username is not None:
+        user.username = user_update.username
+    if user_update.theme is not None:
+        if user_update.theme in ["light", "dark"]:
+            user.theme = user_update.theme
+    
+    db.commit()
+    db.refresh(user)
     return user
 

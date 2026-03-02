@@ -1,18 +1,30 @@
 @import "tailwindcss";
 
 /* Настройка темной темы для Tailwind v4 через @variant */
-/* Вариант 1: через класс на родителе (рекомендуется) */
-/* Применяется ко всем элементам внутри элемента с классом .dark */
 @variant dark (.dark &);
-
-/* Альтернативный вариант (если первый не работает): */
-/* @variant dark (&:where(.dark, .dark *)); */
 
 body {
   font-family: 'Science Gothic', serif;
 }
 
-/* Поддержка темной темы */
 html.dark {
   color-scheme: dark;
+}
+
+/* Бронзово-серый акцент вместо синего (Element Plus) */
+:root {
+  --el-color-primary: #b45309;
+  --el-color-primary-light-3: #c2410c;
+  --el-color-primary-light-5: #d97706;
+  --el-color-primary-light-7: #f59e0b;
+  --el-color-primary-light-8: #fbbf24;
+  --el-color-primary-light-9: #fde68a;
+  --el-color-primary-dark-2: #92400e;
+}
+
+html.dark {
+  --el-color-primary: #d97706;
+  --el-color-primary-light-3: #b45309;
+  --el-color-primary-light-5: #92400e;
+  --el-color-primary-dark-2: #f59e0b;
 }

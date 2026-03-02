@@ -22,6 +22,7 @@ pip install -r requirements.txt
 
 1. Скопируйте `env.example` в `.env` и при необходимости отредактируйте значения.
 2. По умолчанию используется SQLite файл `app.db` в корне backend.
+3. Если запросы к MusicBrainz (поиск исполнителей/альбомов) не проходят из-за фаервола или прокси, задайте в `.env` переменные `HTTP_PROXY` или `HTTPS_PROXY` (например: `HTTPS_PROXY=http://proxy:3128`).
 
 ## Running
 

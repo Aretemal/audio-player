@@ -9,7 +9,7 @@ from app.core.config import settings
 from app.crud.user import authenticate_user, create_user, get_user_by_id
 from app.db.session import get_db
 from app.models.user import User
-from app.schemas.user import RefreshTokenRequest, Token, UserCreate, UserLogin, UserRead
+from app.schemas.user import RefreshTokenRequest, Token, UserCreate, UserLogin, UserRead, UserUpdate
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -177,4 +177,25 @@ def logout(response: Response):
 )
 def get_current_user_info(current_user: User = Depends(get_user_from_request)):
     return current_user
+
+
+@router.put(
+    "/me",
+    response_model=UserRead,
+    dependencies=[Depends(verify_auth_global)],
+)
+def update_current_user(
+    user_update: UserUpdate,
+    current_user: User = Depends(get_user_from_request),
+    db: Session = Depends(get_db),
+):
+    from app.crud.user import update_user
+    
+    updated_user = update_user(db, current_user.id, user_update)
+    if not updated_user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
+    return updated_user
 

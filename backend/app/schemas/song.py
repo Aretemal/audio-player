@@ -25,6 +25,7 @@ class SongRead(BaseModel):
     artist: Optional[str] = None
     src: str
     album: Optional[str] = None
+    file_size: Optional[int] = None
     user_ids: List[int] = [] 
 
     created_at: datetime

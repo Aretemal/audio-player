@@ -18,7 +18,9 @@ export const bookmarkService = {
     return apiClient.delete(`/bookmarks/${id}`)
   },
   check: (bookmark_type: 'artist' | 'album', musicbrainz_id: string) => {
-    return apiClient.get<Bookmark | null>(`/bookmarks/check/${bookmark_type}/${musicbrainz_id}`)
+    return apiClient.get<Bookmark | null>(
+      `/bookmarks/check/${bookmark_type}/${encodeURIComponent(musicbrainz_id)}`
+    )
   },
   getCategories: () => {
     return apiClient.get<BookmarkCategory[]>('/bookmarks/categories')

@@ -12,6 +12,7 @@ import Playlists from '@/views/PlaylistsPage.vue'
 import Artists from '@/views/ArtistsPage.vue'
 import ArtistDetail from '@/views/ArtistDetailPage.vue'
 import ReleaseDetail from '@/views/ReleaseDetailPage.vue'
+import AlbumDetail from '@/views/AlbumDetailPage.vue'
 
 import { AppRoutes } from '../constants/appRoutes'
 
@@ -73,6 +74,12 @@ const router = createRouter({
     {
       path: AppRoutes.RELEASE_DETAILS,
       component: ReleaseDetail,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/albums/:provider/:id',
+      name: 'album-detail',
+      component: AlbumDetail,
       meta: { requiresAuth: true },
     },
   ],

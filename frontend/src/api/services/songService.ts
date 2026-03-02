@@ -19,6 +19,20 @@ export const songService = {
   },
   update: (id: number, song: SongUpdate) => apiClient.put<Song>(`/songs/${id}`, song),
   delete: (id: number) => apiClient.delete<void>(`/songs/${id}`),
+  addToLibrary: (songId: number) =>
+    apiClient.post<{ detail: string; added: boolean }>(`/songs/${songId}/add-to-library`),
+  removeFromLibrary: (songId: number) =>
+    apiClient.delete<{ detail: string; removed: boolean }>(`/songs/${songId}/add-to-library`),
+  createFromPreview: (data: { preview_url: string; title: string; artist: string; album?: string }) =>
+    apiClient.post<Song>('/songs/from-preview', data),
+  getDownloadExternalUrl: (url: string) => {
+    const base = apiClient.defaults.baseURL || ''
+    return `${base}/songs/download-external?url=${encodeURIComponent(url)}`
+  },
+  getDownloadUrl: (id: number) => {
+    const baseURL = apiClient.defaults.baseURL || ''
+    return `${baseURL}/songs/${id}/download`
+  },
   getStreamUrl: (id: number) => {
     const baseURL = apiClient.defaults.baseURL || ''
     return `${baseURL}/songs/${id}/stream`

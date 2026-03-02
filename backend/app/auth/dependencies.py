@@ -14,7 +14,6 @@ def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db),
 ) -> User:
-    """Получает текущего пользователя из JWT токена"""
     token = credentials.credentials
     
     try:
@@ -52,7 +51,6 @@ def get_current_user(
 def get_current_active_user(
     current_user: User = Depends(get_current_user),
 ) -> User:
-    """Проверяет, что пользователь активен"""
     if not current_user.is_active:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
@@ -65,19 +63,10 @@ def verify_auth_global(
     request: Request,
     db: Session = Depends(get_db),
 ) -> None:
-    """
-    Глобальная проверка авторизации для router-level dependencies.
-    Сохраняет пользователя в request.state для использования в роутах.
-    Поддерживает как cookies, так и Authorization header для обратной совместимости.
-    """
     from app.core.config import settings
     
     token = None
-    
-    # Пытаемся получить токен из cookie (приоритет)
     token = request.cookies.get(settings.COOKIE_ACCESS_TOKEN_NAME)
-    
-    # Если нет в cookie, пытаемся из заголовка (для обратной совместимости)
     if not token:
         auth_header = request.headers.get("Authorization")
         if auth_header and auth_header.startswith("Bearer "):
@@ -93,8 +82,7 @@ def verify_auth_global(
         payload = decode_token(token)
         user_id_str: str = payload.get("sub")
         token_type: str = payload.get("type")
-        
-        # Преобразуем строку в int
+
         try:
             user_id: int = int(user_id_str)
         except (ValueError, TypeError):
